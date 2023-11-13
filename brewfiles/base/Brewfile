@@ -1,6 +1,8 @@
 brew "gh"
 brew "fzf"
 brew "mas"
+brew "node@18"
+brew "node"
 
 cask "visual-studio-code"
 cask "rectangle"
