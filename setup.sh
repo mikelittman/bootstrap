@@ -50,3 +50,15 @@ if command -v fzf &> /dev/null; then
     fi
 fi
 
+            
+echo "   _______________________    "
+echo "  |                  - (  |   "
+echo " ,'-.                 . \`-|   "
+echo "(____\".       ,-.    '   ||   "
+echo "  |          /\,-\   ,-.  |   "
+echo "  |      ,-./     \ /'.-\ |   "
+echo "  |     /-.,\      /     \|   "
+echo "  |    /     \    ,-.     \   "
+echo "  |___/_______\__/___\_____\  "
+echo "                              "
+echo "⛰️🍾 All setup!"
