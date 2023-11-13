@@ -13,6 +13,15 @@ if ! command -v brew &> /dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+read -p "Would you like to configure git automatically? (Y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
+    read -p "What email would you like to use for git? " GIT_EMAIL
+    GIT_NAME="Mike Littman"
+    git config --global user.name "$GIT_NAME"
+    git config --global user.email "$GIT_EMAIL"
+fi
+
 read -p "Would you like to run 'brew bundle'? (Y/n) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
