@@ -41,3 +41,12 @@ if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
         echo "No brewfiles directory found."
     fi
 fi
+
+if command -v fzf &> /dev/null; then
+    read -p "Would you like to install fzf keybindings? (Y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
+        $(brew --prefix)/opt/fzf/install
+    fi
+fi
+
