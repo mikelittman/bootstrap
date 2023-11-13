@@ -1,0 +1,3 @@
+cask "slack"
+cask "notion"
+cask "postman"

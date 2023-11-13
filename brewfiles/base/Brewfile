@@ -1,0 +1,23 @@
+brew "gh"
+brew "fzf"
+brew "mas"
+
+cask "visual-studio-code"
+cask "rectangle"
+cask "discord"
+cask "1Password"
+
+mas "1Password for Safari", id: 1569813296
+
+vscode "ms-vsliveshare.vsliveshare"
+vscode "ms-vscode.vscode-typescript-next"
+vscode "ms-azuretools.vscode-docker"
+vscode "ms-ossdata.vscode-postgresql"
+vscode "ms-python.python"
+vscode "ms-python.vscode-pylance"
+vscode "github.copilot"
+vscode "github.copilot-chat"
+vscode "rust-lang.rust-analyzer"
+vscode "dbaeumer.vscode-eslint"
+
+vscode "yoavbls.pretty-ts-errors"
