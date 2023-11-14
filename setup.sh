@@ -50,6 +50,26 @@ if command -v fzf &> /dev/null; then
     fi
 fi
 
+read -p "Would you like to add ./scripts to PATH? (Y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
+    PROJECT_ROOT=$(dirname $(realpath $0))
+    if ! grep -qxF "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" ~/.bashrc; then
+        echo "Adding ./scripts to PATH (bash)"
+        echo "# ADDED BY BOOTSTRAP SCRIPT" >> ~/.bashrc
+        echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >> ~/.bashrc
+    else
+        echo "./scripts is already in PATH (bash)"
+    fi
+    if ! grep -qxF "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" ~/.zshrc; then
+        echo "Adding ./scripts to PATH (zsh)"
+        echo "# ADDED BY BOOTSTRAP SCRIPT" >> ~/.zshrc
+        echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >> ~/.zshrc
+    else
+        echo "./scripts is already in PATH (zsh)"
+    fi
+fi
+
             
 echo "   _______________________    "
 echo "  |                  - (  |   "
