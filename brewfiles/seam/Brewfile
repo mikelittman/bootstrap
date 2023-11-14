@@ -1,3 +1,8 @@
+tap "dopplerhq/cli"
+
+brew "gnupg"
+brew "dopplerhq/cli/doppler"
+
 cask "slack"
 cask "notion"
 cask "postman"
