@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+function list_versions {
+    versions=()
+    paths=()
+
+    # Get all node versions
+    node_versions=($(brew list --formula --version | grep "^node" | sed 's/ /__/g'))
+
+    for formula_version in $node_versions; do
+        # split by __, first part is formula, second is version
+        formula="$(echo $formula_version | awk -F'__' '{print $1}')"
+        version="$(echo $formula_version | awk -F'__' '{print $2}')"
+
+        # Add to arrays
+        versions+=("$version")
+        paths+=("$(brew --prefix $formula)")
+    done
+}
+
+function emit_versions {
+    list_versions
+
+    # Print out all versions
+    echo "Available versions:"
+    for ((i=1; i<=${#versions[@]}; i++)); do
+        echo "[$i] ${versions[$i]}"
+    done
+}
+
+function set_version {
+    list_versions
+
+    version_index=$1
+
+    # Check if the index is valid
+    if [[ $version_index =~ ^[0-9]+$ ]] && [ $version_index -ge 1 ] && [ $version_index -le ${#versions[@]} ]; then
+        # Add the bin directory to the PATH
+        PATH=${paths[$version_index]}/bin:$PATH
+        export PATH
+        echo "Using ${versions[$version_index]}"
+    else
+        echo "Invalid version index."
+        return 1
+    fi
+}
+
+# Check the first argument to decide what to do
+if [ "$1" = "list" ]; then
+    emit_versions
+elif [ "$1" = "set" ]; then
+    set_version $2
+else
+    echo "Invalid command. Use 'list' to list versions or 'set' to set a version."
+fi
