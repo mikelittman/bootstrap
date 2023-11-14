@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Check if the script is being sourced
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    echo "This script must be sourced. Use '. nvm' instead."
+    exit 1
+fi
+
 function list_versions {
     versions=()
     paths=()
