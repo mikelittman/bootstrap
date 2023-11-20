@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+current_dir="$(pwd)"
+
+load_env_file() {
+    local env_file="$current_dir/$1"
+    if [ -f "$env_file" ]; then
+        echo "Loading environment variables from $env_file"
+        while IFS= read -r line; do
+            export "$line"
+        done < "$env_file"
+    else
+        echo "No .env file found in the current directory."
+    fi
+}
+
+if [ $# -eq 0 ]; then
+    load_env_file ".env"
+else
+    load_env_file "$1"
+fi
