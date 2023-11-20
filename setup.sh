@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if ! xcode-select -p >/dev/null; then
     echo "Xcode developer tools not found. Installing..."
     xcode-select --install
@@ -13,14 +15,18 @@ if ! command -v brew &> /dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-read -p "Would you like to configure git automatically? (Y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
-    read -p "What email would you like to use for git? " GIT_EMAIL
-    GIT_NAME="Mike Littman"
-    git config --global user.name "$GIT_NAME"
-    git config --global user.email "$GIT_EMAIL"
+if ! git config --get user.name >/dev/null; then
+    echo "Git user.name not set."
+    read -p "Enter your name: " name
+    git config --global user.name "$name"
 fi
+
+if ! git config --get user.email >/dev/null; then
+    echo "Git user.email not set."
+    read -p "Enter your email: " email
+    git config --global user.email "$email"
+fi
+
 
 read -p "Would you like to run 'brew bundle'? (Y/n) " -n 1 -r
 echo
@@ -32,9 +38,9 @@ if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
             read -p "Would you like to install packages in $dir? (Y/n) " -n 1 -r
             echo
             if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
-                cd "$dir"
+                cd "$dir" || exit
                 brew bundle
-                cd -
+                cd - || exit
             fi
         done
     else
@@ -42,33 +48,55 @@ if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
     fi
 fi
 
-if command -v fzf &> /dev/null; then
-    read -p "Would you like to install fzf keybindings? (Y/n) " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
-        $(brew --prefix)/opt/fzf/install
+# Array of known shell rc files
+rcfiles=(
+  ".bashrc"
+  ".zshrc"
+  ".config/fish/config.fish"
+  ".dashrc"
+  ".tcshrc"
+)
+
+# Check if 'fzf' is in PATH
+if ! command -v fzf &>/dev/null; then
+    echo "fzf is not installed or not available in PATH"
+    echo "Run the bundler script option or install fzf manually"
+else
+    # Check each rc file for 'fzf' configuration
+    for rcfile in "${rcfiles[@]}"; do
+        full_rcfile="$HOME/$rcfile"
+        if [ -f "$full_rcfile" ]; then
+            if grep -q "fzf" "$full_rcfile"; then
+                FZF_INSTALL=true
+                break
+            fi
+        fi
+    done
+
+    if [ -n "${FZF_INSTALL+x}" ]; then
+        echo "fzf is configured. pass FZF_INSTALL-true to run fzf install script"
+    else
+        echo "fzf configuration was not found."
+        "$(brew --prefix)"/opt/fzf/install
     fi
 fi
 
-read -p "Would you like to add ./scripts to PATH? (Y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
-    PROJECT_ROOT=$(dirname $(realpath $0))
-    if ! grep -qxF "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" ~/.bashrc; then
-        echo "Adding ./scripts to PATH (bash)"
-        echo "# ADDED BY BOOTSTRAP SCRIPT" >> ~/.bashrc
-        echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >> ~/.bashrc
-    else
-        echo "./scripts is already in PATH (bash)"
-    fi
-    if ! grep -qxF "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" ~/.zshrc; then
-        echo "Adding ./scripts to PATH (zsh)"
-        echo "# ADDED BY BOOTSTRAP SCRIPT" >> ~/.zshrc
-        echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >> ~/.zshrc
-    else
-        echo "./scripts is already in PATH (zsh)"
-    fi
+PROJECT_ROOT=$(dirname "$(realpath "$0")")
+if ! grep -qxF "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" ~/.bashrc; then
+    echo "Adding ./scripts to PATH (bash)"
+    echo "# ADDED BY BOOTSTRAP SCRIPT" >> ~/.bashrc
+    echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >> ~/.bashrc
+else
+    echo "./scripts is already in PATH (bash)"
 fi
+if ! grep -qxF "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" ~/.zshrc; then
+    echo "Adding ./scripts to PATH (zsh)"
+    echo "# ADDED BY BOOTSTRAP SCRIPT" >> ~/.zshrc
+    echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >> ~/.zshrc
+else
+    echo "./scripts is already in PATH (zsh)"
+fi
+
 
             
 echo "   _______________________    "
