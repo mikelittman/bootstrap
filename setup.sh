@@ -15,13 +15,13 @@ if ! command -v brew &> /dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-if ! git config --get user.name >/dev/null; then
+if ! git config --get user.name >/dev/null ||  [ -n "${FORCE_GIT+x}" ]; then
     echo "Git user.name not set."
     read -p "Enter your name: " name
     git config --global user.name "$name"
 fi
 
-if ! git config --get user.email >/dev/null; then
+if ! git config --get user.email >/dev/null ||  [ -n "${FORCE_GIT+x}" ]; then
     echo "Git user.email not set."
     read -p "Enter your email: " email
     git config --global user.email "$email"
