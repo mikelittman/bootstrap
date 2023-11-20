@@ -17,13 +17,13 @@ fi
 
 if ! git config --get user.name >/dev/null ||  [ -n "${FORCE_GIT+x}" ]; then
     echo "Git user.name not set."
-    read -p "Enter your name: " name
+    read -r -p "Enter your name: " name
     git config --global user.name "$name"
 fi
 
 if ! git config --get user.email >/dev/null ||  [ -n "${FORCE_GIT+x}" ]; then
     echo "Git user.email not set."
-    read -p "Enter your email: " email
+    read -r -p "Enter your email: " email
     git config --global user.email "$email"
 fi
 
