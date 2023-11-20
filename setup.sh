@@ -74,7 +74,7 @@ else
     done
 
     if [ -n "${FZF_INSTALL+x}" ]; then
-        echo "fzf is configured. pass FZF_INSTALL-true to run fzf install script"
+        echo "fzf is configured. pass FZF_INSTALL=true to run fzf install script"
     else
         echo "fzf configuration was not found."
         "$(brew --prefix)"/opt/fzf/install
