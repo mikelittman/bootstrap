@@ -1,8 +1,12 @@
+tap "oven-sh/bun"
+
+brew "bun"
 brew "gh"
 brew "fzf"
 brew "mas"
 brew "node@18"
 brew "node"
+brew "rust"
 
 cask "visual-studio-code"
 cask "rectangle"
