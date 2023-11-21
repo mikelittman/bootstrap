@@ -11,6 +11,7 @@ cask "1Password"
 cask "orbstack"
 
 mas "1Password for Safari", id: 1569813296
+mas "Postico 2", id: 6446933691
 
 vscode "ms-vsliveshare.vsliveshare"
 vscode "ms-vscode-remote.remote-containers"
