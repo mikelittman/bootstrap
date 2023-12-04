@@ -7,6 +7,7 @@ brew "mas"
 brew "node@18"
 brew "node"
 brew "rust"
+brew "bottom"
 
 cask "visual-studio-code"
 cask "discord"
