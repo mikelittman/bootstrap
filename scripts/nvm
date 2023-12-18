@@ -51,11 +51,56 @@ function set_version {
     fi
 }
 
+function save_version {
+    list_versions
+
+    version_index=$1
+
+    # Check if the index is valid
+    if [[ $version_index =~ ^[0-9]+$ ]] && [ $version_index -ge 1 ] && [ $version_index -le ${#versions[@]} ]; then
+        selected_version=${versions[$version_index]}
+        selected_path=${paths[$version_index]}
+
+        # List of rc files to be updated
+        rc_files=("$HOME/.bashrc" "$HOME/.zshrc")
+
+        # Prepare the line to be added/updated in the rc files
+        new_path_line="export PATH=$selected_path/bin:\$PATH # nvm-script"
+
+        for rc_file in "${rc_files[@]}"; do
+            # Check if the rc file exists
+            if [ -f "$rc_file" ]; then
+                # Check if the nvm-script line already exists
+                if grep -q "nvm-script" "$rc_file"; then
+                    # Update the existing line (macOS version)
+                    sed -i '' "/nvm-script/c\\
+$new_path_line" "$rc_file"
+                    echo "Updated Node version to $selected_version in $rc_file"
+                else
+                    # Append the new line
+                    echo "" >> $rc_file
+                    echo "# Setting Node version to $selected_version" >> $rc_file
+                    echo "$new_path_line" >> $rc_file
+                    echo "Saved Node version $selected_version to $rc_file"
+                fi
+            else
+                echo "$rc_file not found. Skipping."
+            fi
+        done
+    else
+        echo "Invalid version index."
+        return 1
+    fi
+}
+
+
 # Check the first argument to decide what to do
 if [ "$1" = "list" ]; then
     emit_versions
 elif [ "$1" = "set" ]; then
     set_version $2
+elif [ "$1" = "save" ]; then
+    save_version $2
 else
     echo "Invalid command. Use 'list' to list versions or 'set' to set a version."
 fi
