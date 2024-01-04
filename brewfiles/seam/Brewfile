@@ -2,7 +2,10 @@ tap "dopplerhq/cli"
 
 brew "gnupg"
 brew "dopplerhq/cli/doppler"
+brew "openjdk@17"
 
 cask "slack"
 cask "notion"
 cask "postman"
+cask "android-studio"
+cask "intellij-idea-ce"
