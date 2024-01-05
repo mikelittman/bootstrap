@@ -39,7 +39,7 @@ if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
             echo
             if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
                 cd "$dir" || exit
-                brew bundle
+                brew bundle --verbose
                 cd - || exit
             fi
         done
