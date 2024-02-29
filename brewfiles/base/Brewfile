@@ -20,6 +20,7 @@ cask "Spotify"
 cask "wezterm"
 cask "lm-studio"
 cask "parsec"
+cask "arc"
 
 mas "1Password for Safari", id: 1569813296
 mas "Postico 2", id: 6446933691
