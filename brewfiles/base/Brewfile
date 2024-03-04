@@ -9,6 +9,7 @@ brew "node"
 brew "rust"
 brew "bottom"
 brew "cocoapods"
+brew "graphviz"
 
 cask "visual-studio-code"
 cask "discord"
