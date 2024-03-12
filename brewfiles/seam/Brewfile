@@ -3,6 +3,7 @@ tap "dopplerhq/cli"
 brew "gnupg"
 brew "dopplerhq/cli/doppler"
 brew "openjdk@17"
+brew "gradle"
 
 cask "slack"
 cask "notion"
