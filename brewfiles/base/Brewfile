@@ -45,5 +45,6 @@ vscode "dbaeumer.vscode-eslint"
 vscode "esbenp.prettier-vscode"
 vscode "eamodio.gitlens"
 vscode "ambar.bundle-size"
-
 vscode "yoavbls.pretty-ts-errors"
+vscode "github.vscode-github-actions"
+vscode "oven.bun-vscode"
