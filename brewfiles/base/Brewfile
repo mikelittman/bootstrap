@@ -11,6 +11,7 @@ brew "rust"
 brew "bottom"
 brew "cocoapods"
 brew "graphviz"
+brew "atuin"
 
 cask "visual-studio-code"
 cask "discord"
