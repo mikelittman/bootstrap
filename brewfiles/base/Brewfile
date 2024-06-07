@@ -25,12 +25,6 @@ cask "parsec"
 cask "arc"
 cask "shortcat"
 
-mas "1Password for Safari", id: 1569813296
-mas "Postico 2", id: 6446933691
-mas "Wipr", id: 1320666476
-mas "Xcode", id: 497799835
-mas "Amphetamine", id: 937984704
-
 vscode "ms-vsliveshare.vsliveshare"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode.vscode-typescript-next"
