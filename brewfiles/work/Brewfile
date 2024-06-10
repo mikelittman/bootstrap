@@ -1,1 +1,2 @@
 brew "php"
+brew "mysql"
