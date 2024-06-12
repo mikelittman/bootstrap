@@ -26,6 +26,7 @@ cask "lm-studio"
 cask "parsec"
 cask "arc"
 cask "shortcat"
+cask "chatgpt"
 
 vscode "ms-vsliveshare.vsliveshare"
 vscode "ms-vscode-remote.remote-containers"
