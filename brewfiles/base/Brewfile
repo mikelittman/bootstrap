@@ -12,6 +12,7 @@ brew "bottom"
 brew "cocoapods"
 brew "graphviz"
 brew "atuin"
+brew "pnpm"
 
 cask "visual-studio-code"
 cask "discord"
