@@ -28,6 +28,7 @@ cask "parsec"
 cask "arc"
 cask "shortcat"
 cask "chatgpt"
+cask "zed"
 
 vscode "ms-vsliveshare.vsliveshare"
 vscode "ms-vscode-remote.remote-containers"
