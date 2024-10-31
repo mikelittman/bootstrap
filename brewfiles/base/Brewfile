@@ -13,6 +13,8 @@ brew "cocoapods"
 brew "graphviz"
 brew "atuin"
 brew "pnpm"
+brew "bat"
+brew "jsonpp"
 
 cask "visual-studio-code"
 cask "discord"
