@@ -1,6 +1,3 @@
-tap "oven-sh/bun"
-
-brew "bun"
 brew "gh"
 brew "fzf"
 brew "mas"

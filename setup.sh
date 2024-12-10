@@ -10,23 +10,22 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-if ! command -v brew &> /dev/null; then
+if ! command -v brew &>/dev/null; then
     echo "Homebrew not found. Installing..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-if ! git config --get user.name >/dev/null ||  [ -n "${FORCE_GIT+x}" ]; then
+if ! git config --get user.name >/dev/null || [ -n "${FORCE_GIT+x}" ]; then
     echo "Git user.name not set."
     read -r -p "Enter your name: " name
     git config --global user.name "$name"
 fi
 
-if ! git config --get user.email >/dev/null ||  [ -n "${FORCE_GIT+x}" ]; then
+if ! git config --get user.email >/dev/null || [ -n "${FORCE_GIT+x}" ]; then
     echo "Git user.email not set."
     read -r -p "Enter your email: " email
     git config --global user.email "$email"
 fi
-
 
 read -p "Would you like to run 'brew bundle'? (Y/n) " -n 1 -r
 echo
@@ -48,13 +47,18 @@ if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
     fi
 fi
 
+if ! command -v bun &>/dev/null; then
+    echo "bun not found. Installing..."
+    curl -fsSL https://bun.sh/install | bash
+fi
+
 # Array of known shell rc files
 rcfiles=(
-  ".bashrc"
-  ".zshrc"
-  ".config/fish/config.fish"
-  ".dashrc"
-  ".tcshrc"
+    ".bashrc"
+    ".zshrc"
+    ".config/fish/config.fish"
+    ".dashrc"
+    ".tcshrc"
 )
 
 # Check if 'fzf' is in PATH
@@ -84,21 +88,19 @@ fi
 PROJECT_ROOT=$(dirname "$(realpath "$0")")
 if ! grep -qxF "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" ~/.bashrc; then
     echo "Adding ./scripts to PATH (bash)"
-    echo "# ADDED BY BOOTSTRAP SCRIPT" >> ~/.bashrc
-    echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >> ~/.bashrc
+    echo "# ADDED BY BOOTSTRAP SCRIPT" >>~/.bashrc
+    echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >>~/.bashrc
 else
     echo "./scripts is already in PATH (bash)"
 fi
-if ! grep -qxF "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" ~/.zshrc; then
+if ! grep -qxF "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" ~/.zshenv; then
     echo "Adding ./scripts to PATH (zsh)"
-    echo "# ADDED BY BOOTSTRAP SCRIPT" >> ~/.zshrc
-    echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >> ~/.zshrc
+    echo "# ADDED BY BOOTSTRAP SCRIPT" >>~/.zshenv
+    echo "export PATH=\"\$PATH:$PROJECT_ROOT/scripts\"" >>~/.zshenv
 else
     echo "./scripts is already in PATH (zsh)"
 fi
 
-
-            
 echo "   _______________________    "
 echo "  |                  - (  |   "
 echo " ,'-.                 . \`-|   "
