@@ -13,7 +13,7 @@ brew "pnpm"
 brew "bat"
 brew "jsonpp"
 brew "starship"
-brew "exa"
+brew "eza"
 brew "dust"
 
 cask "visual-studio-code"
