@@ -1,0 +1,5 @@
+brew "php"
+brew "composer"
+brew "mysql"
+
+cask "mysql-shell"
