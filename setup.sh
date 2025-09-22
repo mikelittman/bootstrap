@@ -52,6 +52,14 @@ if ! command -v bun &>/dev/null; then
     curl -fsSL https://bun.sh/install | bash
 fi
 
+if command -v delta &>/dev/null; then
+    echo "Configuring delta"
+    git config --global core.pager delta
+    git config --global interactive.diffFilter 'delta --color-only'
+    git config --global delta.navigate true
+    git config --global merge.conflictStyle zdiff3
+fi
+
 # Array of known shell rc files
 rcfiles=(
     ".bashrc"

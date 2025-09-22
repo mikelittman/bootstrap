@@ -15,6 +15,7 @@ brew "jsonpp"
 brew "starship"
 brew "eza"
 brew "dust"
+brew "delta"
 
 cask "visual-studio-code"
 cask "discord"
